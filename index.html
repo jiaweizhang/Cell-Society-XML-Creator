@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>XML Creator</title>
+    <meta name="description" content="">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script src="xmlcreator/js/app.js"></script>
+    <script src="xmlcreator/js/xml2json.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="mainController" class="container">
+
+<h2>Cell Society XML Creator</h2>
+
+<form novalidate class="simple-form">
+    Rows: <input type="text" ng-model="obj.row" ng-init="obj.row=5"/><br/>
+    Columns: <input type="text" ng-model="obj.col" ng-init="obj.col=5"/><br/>
+</form>
+<fieldset data-ng-repeat="choice in choices">
+    <!--<select ng-model="choice.which" ng-init="Int">
+        <option>int</option>
+        <option>double</option>
+    </select>-->
+    <label>
+        <input type="radio" ng-model="choice.type" value="int">
+        int
+    </label>
+    <label>
+        <input type="radio" ng-model="choice.type" value="double">
+        double
+    </label>
+    <input type="text" ng-model="choice.name" name="" placeholder="Characteristic Name">
+    <input type="text" ng-model="choice.min" name="" placeholder="Min">
+    <input text="text" ng-model="choice.max" name="" placeholder="Max"><br/>
+    <button class="remove" ng-show="$last" ng-click="removeChoice()">Remove Last Characteristic</button>
+</fieldset>
+<button class="addfields" ng-click="addNewChoice()">Add Characteristic</button>
+
+<div id="choicesDisplay">
+    {{ choices }}
+</div>
+
+<button class="submit" ng-click="submit()">Create XML</button>
+
+
+<pre ng-bind="xmlResult"></pre>
+
+
+</body>
+</html>
