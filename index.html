@@ -21,6 +21,12 @@
     Rows: <input type="text" ng-model="obj.row" ng-init="obj.row=5"/><br/>
     Columns: <input type="text" ng-model="obj.col" ng-init="obj.col=5"/><br/>
 </form>
+<fieldset data-ng-repeat="choice in globalChoices">
+    <input type="text" ng-model="choice.globalcharname" name="" placeholder="Global Characteristic Name">
+    <input type="text" ng-model="choice.value" name="" placeholder="Value">
+    <button class="remove" ng-show="$last" ng-click="removeGlobalChoice()">Remove Last Characteristic</button>
+</fieldset>
+<button class="addfields" ng-click="addNewGlobalChoice()">Add Characteristic</button>
 <fieldset data-ng-repeat="choice in choices">
     <!--<select ng-model="choice.which" ng-init="Int">
         <option>int</option>

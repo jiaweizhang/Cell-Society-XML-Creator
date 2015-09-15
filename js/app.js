@@ -44,9 +44,9 @@ app.controller('mainController', function ($scope) {
                     } else if ($scope.choices[k].type == 'double') {
                         thisValue = getRandomArbitrary($scope.choices[k].min, $scope.choices[k].max);
                     }
-                    characteristic.characteristic.push( {
-                        "name" : $scope.choices[k].name,
-                        "value" : thisValue
+                    characteristic.characteristic.push({
+                        "name": $scope.choices[k].name,
+                        "value": thisValue
                     });
                 }
                 allSquares.square.push({
@@ -56,11 +56,27 @@ app.controller('mainController', function ($scope) {
                 });
             }
         }
+        for (var i=0; i<$scope.globalChoices.length; i++) {
+            console.log($scope.globalChoices[i].globalcharname, $scope.globalChoices[i].value);
+        }
+        //console.log($scope.globalChoices);
 
 
         var x2js = new X2JS();
 
+        var allGlobalChars = {chars:[]};
+
+        for (var m=0; m<$scope.globalChoices.length; m++) {
+            var globalcharname = $scope.globalChoices[m].globalcharname;
+            var value = $scope.globalChoices[m].value;
+            allGlobalChars.chars.push({
+                "name": globalcharname,
+                "value": value
+            });
+        }
+
         var outerScope = {
+            global: allGlobalChars,
             rows: $scope.obj.row,
             cols: $scope.obj.col,
             squares: allSquares};
@@ -85,6 +101,7 @@ app.controller('mainController', function ($scope) {
     }
 
     $scope.choices = [{id: 'choice1'}];
+    $scope.globalChoices = [{row: 'global1'}, {col: 'global2'}];
 
     $scope.addNewChoice = function () {
         var newItemNo = $scope.choices.length + 1;
@@ -94,6 +111,16 @@ app.controller('mainController', function ($scope) {
     $scope.removeChoice = function () {
         var lastItem = $scope.choices.length - 1;
         $scope.choices.splice(lastItem);
+    };
+
+    $scope.addNewGlobalChoice = function () {
+        var newItemNo = $scope.globalChoices.length + 1;
+        $scope.globalChoices.push({'id': 'global' + newItemNo});
+    };
+
+    $scope.removeGlobalChoice = function () {
+        var lastItem = $scope.globalChoices.length - 1;
+        $scope.globalChoices.splice(lastItem);
     };
 
     $scope.randomCharacteristic = function () {
