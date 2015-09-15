@@ -89,10 +89,15 @@ app.controller('mainController', function ($scope) {
     }
 
     function getRandomInt(min, max) {
+        min = parseInt(min);
+        max = parseInt(max);
+        console.log(Math.floor(Math.random() * (max - min + 1)) + min);
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
     function getRandomArbitrary(min, max) {
+        min = parseDouble(min);
+        max = parseDouble(max);
         return Math.random() * (max - min) + min;
     }
 
@@ -101,7 +106,7 @@ app.controller('mainController', function ($scope) {
     }
 
     $scope.choices = [{id: 'choice1'}];
-    $scope.globalChoices = [{row: 'global1'}, {col: 'global2'}];
+    $scope.globalChoices = [{row: 'global1'}];
 
     $scope.addNewChoice = function () {
         var newItemNo = $scope.choices.length + 1;

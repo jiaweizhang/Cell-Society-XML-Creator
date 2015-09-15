@@ -26,12 +26,8 @@
     <input type="text" ng-model="choice.value" name="" placeholder="Value">
     <button class="remove" ng-show="$last" ng-click="removeGlobalChoice()">Remove Last Characteristic</button>
 </fieldset>
-<button class="addfields" ng-click="addNewGlobalChoice()">Add Characteristic</button>
+<button class="addfields" ng-click="addNewGlobalChoice()">Add Global Characteristic</button>
 <fieldset data-ng-repeat="choice in choices">
-    <!--<select ng-model="choice.which" ng-init="Int">
-        <option>int</option>
-        <option>double</option>
-    </select>-->
     <label>
         <input type="radio" ng-model="choice.type" value="int">
         int
