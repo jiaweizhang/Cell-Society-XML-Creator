@@ -4,59 +4,56 @@ app.controller('mainController', function ($scope) {
 
     $scope.submit = function () {
         /*var allSquares = new Array();
-        for (var i = 0; i < $scope.obj.row; i++) {
-            for (var j = 0; j < $scope.obj.col; j++) {
-                console.log(i, j);
-                var charArray = new Array();
-                //var thisSquare = new Object();
-                for (var k = 0; k < $scope.choices.length; k++) {
-                    var thisSquare = {};
-                    thisSquare.characteristic = {};
-                    thisSquare.characteristic.name = $scope.choices[k].name;
-                    thisSquare.characteristic.type = $scope.choices[k].type;
-                    if (thisSquare.type == 'int') {
-                        thisSquare.characteristic.value = getRandomInt($scope.choices[k].min, $scope.choices[k].max);
-                    }
-                    charArray.push(thisSquare.characteristic);
+         for (var i = 0; i < $scope.obj.row; i++) {
+         for (var j = 0; j < $scope.obj.col; j++) {
+         console.log(i, j);
+         var charArray = new Array();
+         //var thisSquare = new Object();
+         for (var k = 0; k < $scope.choices.length; k++) {
+         var thisSquare = {};
+         thisSquare.characteristic = {};
+         thisSquare.characteristic.name = $scope.choices[k].name;
+         thisSquare.characteristic.type = $scope.choices[k].type;
+         if (thisSquare.type == 'int') {
+         thisSquare.characteristic.value = getRandomInt($scope.choices[k].min, $scope.choices[k].max);
+         }
+         charArray.push(thisSquare.characteristic);
+         }
+         console.log(charArray);
+         allSquares.push(charArray);
+         //console.log(allSquares);
+         }
+         }
+         var squares = new Object();
+         $scope.obj.squares = squares;
+         $scope.obj.squares.square = allSquares;
+         // Create x2js instance with default config
+
+         var outerScope = new Object();
+         outerScope.xml = $scope.obj;*/
+
+        var allSquares = {square: []};
+
+        for (var i = 0; i < $scope.obj.index; i++) {
+            var characteristic = {characteristic: []};
+            for (var k = 0; k < $scope.choices.length; k++) {
+                var thisValue;
+                if ($scope.choices[k].type == 'int') {
+                    thisValue = getRandomInt($scope.choices[k].min, $scope.choices[k].max);
+                } else if ($scope.choices[k].type == 'double') {
+                    thisValue = getRandomArbitrary($scope.choices[k].min, $scope.choices[k].max);
                 }
-                console.log(charArray);
-                allSquares.push(charArray);
-                //console.log(allSquares);
-            }
-        }
-        var squares = new Object();
-        $scope.obj.squares = squares;
-        $scope.obj.squares.square = allSquares;
-        // Create x2js instance with default config
-
-        var outerScope = new Object();
-        outerScope.xml = $scope.obj;*/
-
-        var allSquares = {square:[]};
-
-        for (var i = 0; i < $scope.obj.row; i++) {
-            for (var j = 0; j < $scope.obj.col; j++) {
-                var characteristic = {characteristic:[]};
-                for (var k=0; k<$scope.choices.length; k++) {
-                    var thisValue;
-                    if ($scope.choices[k].type == 'int') {
-                        thisValue = getRandomInt($scope.choices[k].min, $scope.choices[k].max);
-                    } else if ($scope.choices[k].type == 'double') {
-                        thisValue = getRandomArbitrary($scope.choices[k].min, $scope.choices[k].max);
-                    }
-                    characteristic.characteristic.push({
-                        "name": $scope.choices[k].name,
-                        "value": thisValue
-                    });
-                }
-                allSquares.square.push({
-                    "row" : i,
-                    "col" : j,
-                   "characteristic" : characteristic.characteristic
+                characteristic.characteristic.push({
+                    "name": $scope.choices[k].name,
+                    "value": thisValue
                 });
             }
+            allSquares.square.push({
+                "index": i,
+                "characteristic": characteristic.characteristic
+            });
         }
-        for (var i=0; i<$scope.globalChoices.length; i++) {
+        for (var i = 0; i < $scope.globalChoices.length; i++) {
             console.log($scope.globalChoices[i].globalcharname, $scope.globalChoices[i].value);
         }
         //console.log($scope.globalChoices);
@@ -64,9 +61,9 @@ app.controller('mainController', function ($scope) {
 
         var x2js = new X2JS();
 
-        var allGlobalChars = {chars:[]};
+        var allGlobalChars = {chars: []};
 
-        for (var m=0; m<$scope.globalChoices.length; m++) {
+        for (var m = 0; m < $scope.globalChoices.length; m++) {
             var globalcharname = $scope.globalChoices[m].globalcharname;
             var value = $scope.globalChoices[m].value;
             allGlobalChars.chars.push({
@@ -77,9 +74,9 @@ app.controller('mainController', function ($scope) {
 
         var outerScope = {
             global: allGlobalChars,
-            rows: $scope.obj.row,
-            cols: $scope.obj.col,
-            squares: allSquares};
+            index: $scope.obj.index,
+            squares: allSquares
+        };
 
         var outestScope = {file: outerScope};
 
